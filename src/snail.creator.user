@@ -1,0 +1,85 @@
+<!DOCTYPE QtCreatorProject>
+<qtcreator>
+ <data>
+  <variable>activeRunConfiguration</variable>
+  <value type="int">0</value>
+ </data>
+ <data>
+  <variable>activebuildconfiguration</variable>
+  <value type="QString">all</value>
+ </data>
+ <data>
+  <variable>buildConfiguration-all</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">all</value>
+   <value key="buildDirectory" type="QString">/Users/joesie/dev/snailext/src</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-all-buildstep0</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">all</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList">
+    <value type="QString">Apple_PubSub_Socket_Render=/tmp/launch-nRJi45/Render</value>
+    <value type="QString">COMMAND_MODE=unix2003</value>
+    <value type="QString">DISPLAY=/tmp/launch-gZPbAl/org.x:0</value>
+    <value type="QString">HOME=/Users/joesie</value>
+    <value type="QString">LOGNAME=joesie</value>
+    <value type="QString">PATH=/usr/bin:/bin:/usr/sbin:/sbin</value>
+    <value type="QString">SECURITYSESSIONID=ab37e0</value>
+    <value type="QString">SHELL=/bin/bash</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/launch-mO33xX/Listeners</value>
+    <value type="QString">TMPDIR=/var/folders/XQ/XQKymqjzF8mXKhCxiHi7e++++TI/-Tmp-/</value>
+    <value type="QString">USER=joesie</value>
+    <value type="QString">__CF_USER_TEXT_ENCODING=0x1F5:0:0</value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList">
+    <value type="QString">all</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString">make</value>
+   <value key="abstractProcess.enabled" type="bool">true</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/Users/joesie/dev/snailext/src</value>
+   <valuelist key="buildTargets" type="QVariantList">
+    <value type="QString">all</value>
+   </valuelist>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfigurations</variable>
+  <valuelist type="QVariantList">
+   <value type="QString">all</value>
+  </valuelist>
+ </data>
+ <data>
+  <variable>buildstep0</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString"></value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildsteps</variable>
+  <valuelist type="QVariantList">
+   <value type="QString">GenericProjectManager.MakeStep</value>
+  </valuelist>
+ </data>
+ <data>
+  <variable>cleansteps</variable>
+  <valuelist type="QVariantList"/>
+ </data>
+ <data>
+  <variable>defaultFileEncoding</variable>
+  <value type="QByteArray">System</value>
+ </data>
+ <data>
+  <variable>includePaths</variable>
+  <valuelist type="QVariantList"/>
+ </data>
+ <data>
+  <variable>project</variable>
+  <valuemap type="QVariantMap"/>
+ </data>
+ <data>
+  <variable>toolChain</variable>
+  <value type="int">0</value>
+ </data>
+</qtcreator>
