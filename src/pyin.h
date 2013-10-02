@@ -17,7 +17,5 @@
 //
 // Comments and/or additions are welcome. Send e-mail to: cbrown1@pitt.edu.
 
-PyObject* get_st_libVersion(PyObject* /*self*/, PyObject* /*args*/);
-static PyObject *shift_pitch  (PyObject *self, PyObject *args);
 static PyObject *get_pitch  (PyObject *self, PyObject *args);
 

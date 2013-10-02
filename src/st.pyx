@@ -19,70 +19,29 @@
 #
 # Comments and/or additions are welcome. Send e-mail to: cbrown1@pitt.edu.
 #
+
+# distutils: language = c++
+# distutils: sources = shiftpitch.cpp
+# distutils: libraries = SoundTouch
+# distutils: include_dirs = /usr/include/soundtouch
+#
+#usage: shift_pitch(array, sampleRate, 1.0)
+#
 import numpy as np
-import _st
-import _yin
+cimport numpy as cnp
+cnp.import_array()
 
-__version__='1.0',
-__doc__="""
-Pitch-related function.
+cdef extern from "shiftpitch.h":
+    double *shiftPitch_double(double *sig_in, int sig_in_len, int nChannels, 
+        int fs, float alpha, int quick, int aa, 
+        int bufferSize, 
+        int *sig_out_len)
 
-Provides:
-	get_pitch, Estimates the pitch of a signal.
-	shift_pitch, Performs frequency compression/expansion on a signal.
+    void shiftPitch_release(double *sig_out)
+    void init_snail()
 
-Notes:
-The shift_pitch function depends on soundtouch being installed on your system.
-"""
-__author__='Christopher A. Brown',
-__author_email__ = "cbrown1@pitt.edu",
-__maintainer__ = "Christopher Brown",
-__maintainer_email__ = "cbrown1@pitt.edu",
-__url__ = "http://pysnail.googlecode.com/",
-#__st_libversion__ = _snail.get_st_LibVersion()
-
-def get_pitch (sig, fs, threshold=.15, buffer_size=2048):
-    """
-    Estimates the pitch of a signal.
-
-    Parameters
-    ----------
-    sig : array
-        The input signal. Must be 1d.
-    fs : int
-        The sampling frequency.
-    threshold : float
-        Allowed uncertainty. Values can be 0 <= 1.
-		(e.g 0.05 will return a pitch with ~95% probability).
-    buffer_size : int
-        The analysis buffer size, in samples. Default = 2048.
-
-    Returns
-    -------
-    pitch : array
-        The pitch track. Will be of size (sig.size/buffer_size).
-    probability : array
-        For each pitch estimate, the certainty of the accuracy. 
-		Values will be 0 <= 1. Will be same size as pitch.
-
-    Notes
-    -----
-    This function is crashing hard at the moment. It needs to 
-    be cythonized.
-    
-	Uses the Yin algorithm, a well-established autocorrelation 
-	based pitch algorith. Read a paper on Yin here:
-	http://audition.ens.fr/adc/pdf/2002_JASA_YIN.pdf
-
-	The C implementation of Yin was downloaded on 2013-09-21 from:
-	https://github.com/ashokfernandez/Yin-Pitch-Tracking
-    """
-    pitch = np.zeros(np.round(sig.size/float(buffer_size)))
-    prob =  np.zeros(np.round(sig.size/float(buffer_size)))
-    sigi = np.int16(sig*32700)
-    _yin.get_pitch(sigi,int(fs),pitch,prob,buffer_size,threshold)
-    return pitch,prob
-
+def init__st():
+    pass
 
 def shift_pitch(sig, fs, alpha, quick=True, aa=True, buffer_size=2048):
     """
@@ -119,6 +78,49 @@ def shift_pitch(sig, fs, alpha, quick=True, aa=True, buffer_size=2048):
 
     Uses (and depends on) the soundtouch library: http://www.surina.net/soundtouch/
     """
-    ret = _st.shift_pitch(sig, fs, alpha, quick, aa, buffer_size)
-    return ret
+    cdef int sig_out_len
+    cdef int nChannels
+    cdef int c_quick
+    cdef int c_aa
+    if sig.ndim in [1, 2]:
+        nChannels = sig.ndim
+    else:
+        return None
+    if quick:
+        c_quick = 1
+    else:
+        c_quick = 0
+    if aa:
+        c_aa = 1
+    else:
+        c_aa = 0
 
+    #python -> c
+    sig_in = np.ascontiguousarray(sig, dtype=np.float64)
+    cdef cnp.ndarray[cnp.float64_t, ndim = 1, mode = 'c'] sig_in_1d 
+    if nChannels == 1:
+        sig_in_1d = sig_in
+    else:
+        sig_in_1d = sig_in.reshape(sig_in.size)
+
+    #call soundtouch and receive the c++ buffer
+    cdef double * sig_out = shiftPitch_double(<double *>sig_in_1d.data, sig.shape[0], nChannels, fs, alpha, c_quick, c_aa, buffer_size, &sig_out_len)
+    if sig_out == NULL:
+        return None
+    if nChannels == 1:
+        out_shape = (sig_out_len,)
+    else:
+        out_shape = (sig_out_len, nChannels)
+   
+    #c -> python
+    cdef nd = nChannels
+    cdef cnp.npy_intp dims[2]
+    dims[0] = out_shape[0]
+    if nChannels == 2: dims[1] = out_shape[1]
+
+    #Copy the result without bothering the user
+    out = np.copy(cnp.PyArray_SimpleNewFromData(nd, dims, cnp.NPY_FLOAT64, <void *>sig_out))
+
+    #release the c++ buffer
+    shiftPitch_release(sig_out)
+    return out
