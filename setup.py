@@ -22,13 +22,15 @@
 
 #from distutils.core import setup
 #from distutils.extension import Extension
+import os
 from setuptools import setup, Extension
+from distutils.sysconfig import get_python_lib
 from Cython.Distutils import build_ext
 import numpy
 import platform
 
 snail_data_files = []
-snail_data_files_path = ''
+snail_data_files_path = os.path.join(get_python_lib(), 'snail')
 
 st_sources = ["src/pyst.pyx", "src/shiftpitch.cpp"]
 st_libraries = ['SoundTouch']
@@ -40,21 +42,21 @@ yin_library_dirs = []
 yin_include_dirs = [numpy.get_include()]
 
 if platform.system() == "Windows":
-    snail_data_files.append('soundtouch/lib/dll/SoundTouch.dll')
-    snail_data_files_path = 'snail'
+    snail_data_files.append('soundtouch/dll/SoundTouch.dll')
+    st_include_dirs.append('soundtouch/include')
 else:
     st_include_dirs.append("/usr/include/soundtouch")
     st_include_dirs.append("/usr/local/include/soundtouch")
 
 ext_modules = [ 
-        Extension(
-            name = "snail._st",
-            sources = st_sources,
-            include_dirs = st_include_dirs,
-            library_dirs = st_library_dirs,
-            libraries = st_libraries,
-            language = "c++",
-            ),
+#        Extension(
+#            name = "snail._st",
+#            sources = st_sources,
+#            include_dirs = st_include_dirs,
+#            library_dirs = st_library_dirs,
+#            libraries = st_libraries,
+#            language = "c++",
+#            ),
 
         Extension(
             name = 'snail._yin',
