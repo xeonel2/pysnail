@@ -74,7 +74,8 @@ def get_pitch (sig, fs, threshold=.15, buffer_size=2048, overlap=0):
 	The C implementation of Yin was downloaded on 2013-09-21 from:
 	https://github.com/ashokfernandez/Yin-Pitch-Tracking
 	and has been modified significantly. It now works on doubles,
-	and no (known) memory leaks. There are a few other tweaks as well.
+	and has no (known) memory leaks. There are a few other tweaks 
+	as well.
     """
     pitch,prob = _yin.get_pitch(sig, fs, threshold, buffer_size, overlap)
     return pitch,prob

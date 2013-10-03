@@ -76,7 +76,7 @@ def get_pitch (sig, fs, threshold=.15, buffer_size=2048, overlap=0):
 	and has been modified significantly. It now works on doubles,
 	and no (known) memory leaks. There are a few other tweaks as well.
     """
-    pitch,prob = _yin.get_pitch(sig, fs, threshold = .15, buffer_size = 2048, overlap = 0)
+    pitch,prob = _yin.get_pitch(sig, fs, threshold, buffer_size, overlap)
     return pitch,prob
 
 

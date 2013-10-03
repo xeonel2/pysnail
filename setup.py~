@@ -20,27 +20,48 @@
 # Comments and/or additions are welcome. Send e-mail to: cbrown1@pitt.edu.
 #
 
-#!/usr/bin/env python
 #from distutils.core import setup
 #from distutils.extension import Extension
 from setuptools import setup, Extension
 from Cython.Distutils import build_ext
 import numpy
+import platform
+
+snail_data_files = []
+snail_data_files_path = ''
+
+st_sources = ["src/pyst.pyx", "src/shiftpitch.cpp"]
+st_libraries = ['SoundTouch']
+st_library_dirs = ['soundtouch/lib']
+st_include_dirs = [ numpy.get_include() ]
+
+yin_sources = ['src/pyin.pyx','src/Yin.c']
+yin_library_dirs = []
+yin_include_dirs = [numpy.get_include()]
+
+if platform.system() == "Windows":
+    snail_data_files.append('soundtouch/lib/dll/SoundTouch.dll')
+    snail_data_files_path = 'snail'
+else:
+    st_include_dirs.append("/usr/include/soundtouch")
+    st_include_dirs.append("/usr/local/include/soundtouch")
 
 ext_modules = [ 
         Extension(
             name = "snail._st",
-            sources = ["src/pyst.pyx", "src/shiftpitch.cpp"],
-            include_dirs = [ numpy.get_include(), "/usr/include/soundtouch", "/usr/local/include/soundtouch"],
-            libraries = ["SoundTouch"],
+            sources = st_sources,
+            include_dirs = st_include_dirs,
+            library_dirs = st_library_dirs,
+            libraries = st_libraries,
             language = "c++",
             ),
 
         Extension(
             name = 'snail._yin',
-            sources = ['src/pyin.pyx','src/Yin.c'],
-            include_dirs = [numpy.get_include()],
-            library_dirs = [],
+            sources = yin_sources,
+            include_dirs = yin_include_dirs,
+            library_dirs = yin_library_dirs,
+            language = "c",
             )
     ]
 
@@ -54,6 +75,7 @@ setup(
 	url = "http://pysnail.googlecode.com/",
     name = "snail",
     packages = ['snail'],
+    data_files=[(snail_data_files_path, snail_data_files)],
     cmdclass = {'build_ext':build_ext},
     ext_modules = ext_modules,
 )
