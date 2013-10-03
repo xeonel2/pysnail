@@ -8,7 +8,7 @@ import numpy
 ext_modules = [ 
         Extension(
             name = "snail._st",
-            sources = ["src/pyst.pyx", "src/shiftpitch.cpp"],
+            sources = ["src/st.pyx", "src/shiftpitch.cpp"],
             include_dirs = [ numpy.get_include(), "/usr/include/soundtouch", "/usr/local/include/soundtouch"],
             libraries = ["SoundTouch"],
             language = "c++",

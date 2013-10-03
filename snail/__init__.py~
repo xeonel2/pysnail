@@ -21,7 +21,7 @@
 #
 import numpy as np
 import _st
-import _yin
+#import _yin
 
 __version__='1.0',
 __doc__="""

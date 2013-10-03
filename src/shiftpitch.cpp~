@@ -20,7 +20,7 @@ shiftPitch(
     st.setSetting(SETTING_USE_QUICKSEEK, quick);
     st.setSetting(SETTING_USE_AA_FILTER, aa);
 
-    // SAMPLETYPE sampleBuffer[bufferSize];
+    SAMPLETYPE sampleBuffer[bufferSize];
 
     SAMPLETYPE *sig_out = NULL;
     int sig_out_size = 0; /* num of SIMPLETYPE, not channels block */
