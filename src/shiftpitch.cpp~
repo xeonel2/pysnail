@@ -1,3 +1,24 @@
+/*
+ Copyright (c) 2010-2013 Christopher Brown
+
+ This file is part of Snail.
+
+ Snail is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ Snail is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with Snail.  If not, see <http://www.gnu.org/licenses/>.
+
+ Comments and/or additions are welcome. Send e-mail to: cbrown1@pitt.edu.
+
+*/
 #include "shiftpitch.h"
 #include <stdio.h>
 /* extern "C" */
@@ -20,7 +41,7 @@ shiftPitch(
     st.setSetting(SETTING_USE_QUICKSEEK, quick);
     st.setSetting(SETTING_USE_AA_FILTER, aa);
 
-    SAMPLETYPE sampleBuffer[bufferSize];
+    // SAMPLETYPE sampleBuffer[bufferSize];
 
     SAMPLETYPE *sig_out = NULL;
     int sig_out_size = 0; /* num of SIMPLETYPE, not channels block */
