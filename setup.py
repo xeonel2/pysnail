@@ -49,14 +49,14 @@ else:
     st_include_dirs.append("/usr/local/include/soundtouch")
 
 ext_modules = [ 
-#        Extension(
-#            name = "snail._st",
-#            sources = st_sources,
-#            include_dirs = st_include_dirs,
-#            library_dirs = st_library_dirs,
-#            libraries = st_libraries,
-#            language = "c++",
-#            ),
+        Extension(
+            name = "snail._st",
+            sources = st_sources,
+            include_dirs = st_include_dirs,
+            library_dirs = st_library_dirs,
+            libraries = st_libraries,
+            language = "c++",
+            ),
 
         Extension(
             name = 'snail._yin',
