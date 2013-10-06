@@ -19,17 +19,18 @@
 #
 # Comments and/or additions are welcome. Send e-mail to: cbrown1@pitt.edu.
 #
-import numpy as np
-import _st
-import _yin
+
+#import numpy as np
+import st
+import yin
 
 __version__='1.0',
 __doc__="""
 Pitch-related function.
 
 Provides:
-	get_pitch, Estimates the pitch of a signal.
-	shift_pitch, Performs frequency compression/expansion on a signal.
+	yin.get_pitch, Estimates the pitch of a signal.
+	st.shift_pitch, Performs frequency compression/expansion on a signal.
 
 Notes:
 The shift_pitch function depends on soundtouch being installed on your system.
@@ -77,9 +78,8 @@ def get_pitch (sig, fs, threshold=.15, buffer_size=2048, overlap=0):
 	and has no (known) memory leaks. There are a few other tweaks 
 	as well.
     """
-    pitch,prob = _yin.get_pitch(sig, fs, threshold, buffer_size, overlap)
+    pitch,prob = yin.get_pitch(sig, fs, threshold, buffer_size, overlap)
     return pitch,prob
-
 
 def shift_pitch(sig, fs, alpha, quick=True, aa=True, buffer_size=2048):
     """
@@ -114,8 +114,8 @@ def shift_pitch(sig, fs, alpha, quick=True, aa=True, buffer_size=2048):
 
     Works with mono or stereo data (1 or 2 rows).
 
-    Uses (and depends on) the soundtouch library: http://www.surina.net/soundtouch/
+    Uses the soundtouch library: http://www.surina.net/soundtouch/
     """
-    ret = _st.shift_pitch(sig, fs, alpha, quick, aa, buffer_size)
+    ret = st.shift_pitch(sig, fs, alpha, quick, aa, buffer_size)
     return ret
 

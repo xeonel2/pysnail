@@ -40,6 +40,41 @@ cdef extern from "Yin.h":
 
 
 def get_pitch(sig, double fs, double threshold, int buffer_size, overlap):
+    """
+    Estimates the pitch of a signal.
+
+    Parameters
+    ----------
+    sig : array
+        The input signal. Must be 1d.
+    fs : int
+        The sampling frequency.
+    threshold : float
+        Allowed uncertainty. Values can be 0 <= 1.
+		(e.g 0.05 will return a pitch with ~95% probability).
+    buffer_size : int
+        The analysis buffer size, in samples. Default = 2048.
+
+    Returns
+    -------
+    pitch : array
+        The pitch track. Will be of size (sig.size/buffer_size).
+    probability : array
+        For each pitch estimate, the certainty of the accuracy. 
+		Values will be 0 <= 1. Will be same size as pitch.
+
+    Notes
+    -----
+	Uses the Yin algorithm, a well-established autocorrelation 
+	based pitch algorith. Read a paper on Yin here:
+	http://audition.ens.fr/adc/pdf/2002_JASA_YIN.pdf
+
+	The C implementation of Yin was downloaded on 2013-09-21 from:
+	https://github.com/ashokfernandez/Yin-Pitch-Tracking
+	and has been modified significantly. It now works on doubles,
+	and has no (known) memory leaks. There are a few other tweaks 
+	as well.
+    """
     cdef cnp.ndarray[cnp.float64_t, ndim = 1, mode = 'c'] sig_in
     cdef Yin yin
     cdef int remains

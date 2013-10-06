@@ -1,25 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Copyright (c) 2010-2013 Christopher Brown
-#
-# This file is part of Snail.
-#
-# Snail is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Snail is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Snail.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Comments and/or additions are welcome. Send e-mail to: cbrown1@pitt.edu.
-#
-
 # distutils: language = c++
 # distutils: sources = shiftpitch.cpp
 # distutils: libraries = SoundTouch
@@ -38,10 +16,7 @@ cdef extern from "shiftpitch.h":
         int *sig_out_len)
 
     void shiftPitch_release(double *sig_out)
-    void init_snail()
 
-def init__st():
-    pass
 
 def shift_pitch(sig, fs, alpha, quick=True, aa=True, buffer_size=2048):
     """
@@ -76,7 +51,7 @@ def shift_pitch(sig, fs, alpha, quick=True, aa=True, buffer_size=2048):
 
     Works with mono or stereo data (1 or 2 rows).
 
-    Uses (and depends on) the soundtouch library: http://www.surina.net/soundtouch/
+    Uses the soundtouch library: http://www.surina.net/soundtouch/
     """
     cdef int sig_out_len
     cdef int nChannels
