@@ -1,0 +1,10 @@
+setup.py
+snail/__init__.py
+snail.egg-info/PKG-INFO
+snail.egg-info/SOURCES.txt
+snail.egg-info/dependency_links.txt
+snail.egg-info/top_level.txt
+src/Yin.c
+src/pyin.pyx
+src/shiftpitch.cpp
+src/st.pyx

@@ -1,2 +1,0 @@
-python setup.py build_ext --compiler=mingw32
-python setup.py bdist_msi --skip-build

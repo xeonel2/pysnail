@@ -21,8 +21,8 @@
 #
 
 #import numpy as np
-import _st
-import _yin
+import st
+import yin
 
 __version__='1.0',
 __doc__="""
@@ -78,7 +78,7 @@ def get_pitch (sig, fs, threshold=.15, buffer_size=2048, overlap=0):
 	and has no (known) memory leaks. There are a few other tweaks 
 	as well.
     """
-    pitch,prob = _yin.get_pitch(sig, fs, threshold, buffer_size, overlap)
+    pitch,prob = yin.get_pitch(sig, fs, threshold, buffer_size, overlap)
     return pitch,prob
 
 def shift_pitch(sig, fs, alpha, quick=True, aa=True, buffer_size=2048):
@@ -116,6 +116,6 @@ def shift_pitch(sig, fs, alpha, quick=True, aa=True, buffer_size=2048):
 
     Uses the soundtouch library: http://www.surina.net/soundtouch/
     """
-    ret = _st.shift_pitch(sig, fs, alpha, quick, aa, buffer_size)
+    ret = st.shift_pitch(sig, fs, alpha, quick, aa, buffer_size)
     return ret
 

@@ -3,11 +3,12 @@
 from setuptools import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
+#from Cython.Build import cythonize
 import numpy
 
-ext_modules = [
+ext_modules = [ 
         Extension(
-            name = 'snail.yin',
+            name = 'snail._yin',
             sources = ['src/pyin.pyx','src/Yin.c'],
             include_dirs = [numpy.get_include()],
             libraries = [],
@@ -16,8 +17,8 @@ ext_modules = [
             ),
         
         Extension(
-            name = "snail.st",
-            sources = ["src/pyst.pyx", "src/shiftpitch.cpp"],
+            name = "snail._st",
+            sources = ["src/st.pyx", "src/shiftpitch.cpp"],
             libraries = ["SoundTouch"],
             include_dirs = [ numpy.get_include(), '/usr/include/soundtouch', '/usr/local/include/soundtouch', 'soundtouch/include'],
             library_dirs = ['usr/local/lib/', '/usr/lib', 'soundtouch/lib'],
@@ -34,7 +35,7 @@ setup(
 	maintainer_email = "cbrown1@pitt.edu",
 	url = "http://pysnail.googlecode.com/",
     name = "snail",
-    py_modules = ['snail.st', 'snail.yin'],
+    py_modules = ['snail._st', 'snail._yin'],
     cmdclass = {'build_ext':build_ext},
     ext_modules = ext_modules
 )

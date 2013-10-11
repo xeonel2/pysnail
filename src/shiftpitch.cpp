@@ -20,8 +20,6 @@ shiftPitch(
     st.setSetting(SETTING_USE_QUICKSEEK, quick);
     st.setSetting(SETTING_USE_AA_FILTER, aa);
 
-    SAMPLETYPE sampleBuffer[bufferSize];
-
     SAMPLETYPE *sig_out = NULL;
     int sig_out_size = 0; /* num of SIMPLETYPE, not channels block */
     int remains;
@@ -53,10 +51,10 @@ shiftPitch(
                 if(sig_in_pos == 0) {
                     ratio = 1;
                 } else {
-                    ratio = 1.1*sig_out_pos / sig_in_pos;
+                    ratio = static_cast<float>(1.1*sig_out_pos / sig_in_pos);
                     //if(ratio < 1) ratio = 1;//ok?
                 }
-                sig_out_size += ratio*(sig_in_len*nChannels - sig_in_pos);
+                sig_out_size += static_cast<int>(ratio*(sig_in_len*nChannels - sig_in_pos));
                 void *tmp = realloc(static_cast<void *>(sig_out), sig_out_size*sizeof(SAMPLETYPE));
                 if(!tmp){
                     if(sig_out_size!= 0) free(sig_out);
